@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 /*  描述
 
@@ -150,8 +151,68 @@ void solution_2() {
     printf("%d\n", count);
 }
 
+void solution_3() {
+    int n;
+    int m;
+    int count = 0;
+
+    scanf("%d", &n);
+    getchar(); /* read '\n' */
+
+    int s[n][n];
+    memset(&s, 0, sizeof(s));
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            switch (getchar()) {
+                case '@':
+                    s[i][j] = 1;
+                    break;
+                case '.':
+                    s[i][j] = -1;
+            }
+        }
+        getchar(); /* read '\n' */
+    }
+
+    scanf("%d", &m);
+
+    for (int k = 1; k < m; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (s[i][j] == k) {
+                    if (i - 1 >= 0 && s[i - 1][j] == -1) {
+                        s[i - 1][j] = k + 1;
+                    }
+                    if (i + 1 < n && s[i + 1][j] == -1) {
+                        s[i + 1][j] = k + 1;
+                    }
+                    if (j - 1 >= 0 && s[i][j - 1] == -1) {
+                        s[i][j - 1] = k + 1;
+                    }
+                    if (j + 1 < n && s[i][j + 1] == -1) {
+                        s[i][j + 1] = k + 1;
+                    }
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (s[i][j] > 0) {
+                ++count;
+            }
+        }
+    }
+
+    printf("%d\n", count);
+}
+
 
 int main() {
     // solution_1();
-    solution_2();
+    //solution_2();
+    solution_3();
+
 }
