@@ -67,5 +67,6 @@ void solution_1(void) {
 }
 
 int main() {
-    solution_1();
+    solution_2();
+    // solution_1();
 }
