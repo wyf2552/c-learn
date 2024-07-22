@@ -60,3 +60,48 @@ int main() {
 }
 
 */
+
+
+/* 引用
+
+#include <iostream>
+using namespace std;
+int main() {
+    int n = 7;
+    int & r = n;
+    r = 4;
+    cout << r;
+    cout << n;
+    n = 5;
+    cout << r;
+}
+*/
+
+/* 引用
+
+#include <iostream>
+using namespace std;
+int main() {
+    double a = 4, b = 5;
+    double & r1 = a;
+    double &r2 = r1;
+    r2 = 10;
+    cout << a << endl;
+    r1 = b;
+    cout << a << endl;
+    return 0;
+}
+*/
+
+//引用作为函数的返回值
+#include <iostream>
+using namespace std;
+
+int n = 4;
+int & SetValue() {return n;}
+int main() {
+    SetValue() = 40;
+    cout << n;
+    return 0;
+
+}
