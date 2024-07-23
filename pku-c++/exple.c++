@@ -93,7 +93,8 @@ int main() {
 }
 */
 
-//引用作为函数的返回值
+/*
+引用作为函数的返回值
 #include <iostream>
 using namespace std;
 
@@ -105,3 +106,17 @@ int main() {
     return 0;
 
 }
+*/
+
+//动态分配数组示例
+#include <iostream>
+using namespace std;
+
+int main() {
+    int * pn;
+    int i = 5;
+    pn = new int[i * 20];
+    pn[0] = 20;
+    pn[100] = 30; //编译没问题，运行时导致数组越界，100-99
+}
+
