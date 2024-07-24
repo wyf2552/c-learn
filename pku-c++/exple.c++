@@ -108,7 +108,8 @@ int main() {
 }
 */
 
-//动态分配数组示例
+/*
+动态分配数组示例
 #include <iostream>
 using namespace std;
 
@@ -119,4 +120,39 @@ int main() {
     pn[0] = 20;
     pn[100] = 30; //编译没问题，运行时导致数组越界，100-99
 }
+*/
 
+/* 例：客观事物-类
+ 写一个程序输入矩形的宽和高，输出面积和周长
+ 矩形的属性-宽和高 两个变量，分别代表宽和高
+ 对矩形的操作 设置宽和高 计算面积 计算周长
+
+#include <iostream>
+using namespace std;
+
+class CRectangle {
+    public:
+        int w, h;
+    void init(int w_, int h_) {
+        w = w_; h = h_;
+    }
+
+    int Area() {
+        return w * h;
+    }
+
+    int Perimeter() {
+        return 2 * (w + h);
+    }
+};
+
+int main() {
+    int w, h;
+    CRectangle r;
+    cin >> w >> h;
+    r.init(w, h);
+    cout << r.Area() << endl << r.Perimeter();
+    return 0;
+}
+
+*/
