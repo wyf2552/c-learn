@@ -293,3 +293,112 @@ int main() {
 }
 
 */
+
+/* 考虑一个需要随时知道矩形总数和总面积的图形处理程序，可以用全局变量来记录总数和总面积，用静态成员将这两个变量封装进类中，就更容易理解和维护
+#include <iostream>
+using namespace std;
+
+class CRectangle {
+    private:
+        int w, h;
+        static int nTotalArea;
+        static int nTotalNumber;
+    public:
+        CRectangle(int w_, int h_);
+        ~CRectangle();
+        static void PrintTotal();
+};
+
+CRectangle::CRectangle(int w_, int h_) {
+    w = w_;
+    h = h_;
+    nTotalNumber ++;
+    nTotalArea += w * h;
+
+}
+
+CRectangle::~CRectangle() {
+    nTotalNumber --;
+    nTotalArea -= w * h;
+}
+
+void CRectangle::PrintTotal() {
+    cout << nTotalNumber << "," << nTotalArea <<endl;
+}
+
+int CRectangle::nTotalNumber = 0;
+int CRectangle::nTotalArea = 0;
+
+int main() {
+    CRectangle r1(3, 3), r2(2, 2);
+    CRectangle::PrintTotal();
+    r1.PrintTotal();
+    return 0;
+}
+*/
+
+/*
+封闭类构造函数
+#include <iostream>
+using namespace std;
+class CTyre{
+    public:
+        CTyre() {
+            cout << "CTyre contructor" << endl;
+        }
+        ~CTyre() {
+            cout << "CTyre destructor" << endl;
+        }
+};
+
+class CEngine {
+    public:
+        CEngine() {
+            cout << "CEngine contructor" << endl;
+        }
+        ~CEngine() {
+            cout << "CEngine destructor" << endl;
+        }
+};
+
+class CCar {
+    private:
+        CEngine engine;
+        CTyre tyre;
+    public:
+        CCar() {
+            cout << "CCar contructor" << endl;
+        }
+        ~CCar() {
+            cout << "CCar destructor" << endl;
+        }
+};
+
+int main() {
+    CCar car;
+    return 0;
+}
+*/
+
+/* 常量成员函数
+#include <iostream>
+using namespace std;
+class Sample {
+    public:
+        int value;
+        void GetValue() const;
+        void func() {};
+        Sample() {}
+};
+void Sample::GetValue() const {
+    value = 0; //wrong
+    func(); //wrong
+}
+int main() {
+    const Sample o;
+    o.value = 100; //err
+    o.func(); //err
+    o.GetValue(); //ok
+    return 0;
+}
+*/
