@@ -439,3 +439,180 @@ int main() {
     return 0;
 }
 */
+
+/*
+运算符重载实例：可变长整型数组
+
+#include <iostream>
+using namespace std;
+
+class CArray {
+    int size;
+    int * ptr;
+public:
+    CArray(int s = 0);
+    CArray(CArray & a);
+    ~CArray();
+    void push_back(int v);
+    CArray & operator = (const CArray & a);
+    int length() {return size;}
+    int & CArray::operator[](int i){
+        return ptr[i];
+    }
+};
+
+CArray::CArray(int s):size(s) {
+    if(s == 0)
+        ptr = NULL;
+    else
+        ptr = new int[s];
+}
+CArray::CArray(CArray & a) {
+    if(!a.ptr) {
+        ptr = NULL;
+        size = 0;
+        return;
+    }
+    ptr = new int[a.size];
+    memcpy(ptr, a.ptr, sizeof(int)* a.size);
+    size = a.size;
+}
+CArray::~CArray() {
+    if(ptr) delete[]ptr;
+}
+CArray & CArray::operator = (const CArray & a) {
+    if(ptr == a.ptr)
+        return * this;
+    if(a.ptr == NULL) {
+        if(ptr) delete[] ptr;
+        ptr = NULL;
+        size = 0;
+        return * this;
+    }
+    if (size < a.size) {
+        if(ptr)
+            delete[] ptr;
+        ptr = new int[a.size];
+    }
+    memcpy(ptr, a.ptr, sizeof(int) * a.size);
+    size = a.size;
+    return * this;
+}
+
+void CArray::push_back(int v) {
+    if (ptr) {
+        int * tmpPtr = new int[size + 1];
+        memcpy(tmpPtr,ptr,sizeof(int) * size);
+        delete[] ptr;
+        ptr = tmpPtr;
+    }
+    else
+        ptr = new int[1];
+    ptr[size++] = v;
+}
+
+int main () {
+    CArray a;
+    for(int i = 0; i < 5; ++i)
+        a.push_back(i);
+    CArray a2, a3;
+    a2 = a;
+    for(int i = 0; i < a.length(); ++i)
+        cout << a2[i] << " ";
+    a2 = a;
+    for(int i = 0; i < a2.length(); ++i)
+        cout << a2[i] << " ";
+    cout << endl;
+    a[3] = 100;
+    CArray a4(a);
+    for(int i = 0; i < a4.length(); ++i)
+        cout << a4[i] << " ";
+    return 0;
+
+}
+*/
+
+/*
+假定c是Complex复数类的对象，现在希望写"cout << c;"，就能以"a + bi"的形式数输出c的值，写"cin >> c;",就能从键盘接受" a + bi"形式的输入，并且是使得c.real = a, c.imag = b.
+
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespce std;
+
+class Complex {
+    double real, image;
+public:
+    Complex(double r = 0,double i = 0):real(r),image(i){};
+    friend ostream & operator<<(ostream & os, const Complex & c);
+    friend istream & operator>>(istream & is,Complex & c)
+};
+ostream & operator<<(ostream & os,const Complex & c) {
+    os << c.real << "+" << c.image << "i";
+    return os;
+}
+istream & operator>>(istream & is,Complex & c) {
+    string s;
+    is >> s;
+    int pos = s.find("+", 0);
+    string sTmp = s.substr(0,pos);
+    c.real = atof(sTmp.c_str());
+    sTmp = s.substr(pos + 1, s.length()-pos-2);
+    c.imag = atof(sTmp.c_str());
+    return is;
+    }
+int main() {
+    Complex c;
+    int n;
+    cin >> c >> n;
+    cout << c << "," << n;
+    return 0;
+}
+*/
+
+#include <iostream>
+using namespce std;
+
+class CDemo {
+    private:
+        int n;
+    public:
+        CDemo(int i = 0):n(i) {}
+        CDemo operator++();
+        CDemo operator++(int);
+        operator int () {return n;}
+        friend CDemo operator--(CDemo &);
+        friend CDemo operator--(CDemo &, int);
+};
+CDemo CDemo::operator++() {
+    n++;
+    return * this;
+}
+CDemo CDemo::operator++(int K) {
+    CDemo tmp(*this);
+    n++;
+    return tmp;
+}
+CDemo operator--(CDemo & d) {
+    d.n--;
+    return d;
+}
+CDemo operator--(CDemo & d, int) {
+    CDemo tmp(d);
+    d.n --;
+    return tmp;
+}
+operator int() {return n;}
+
+int main() {
+    CDemo d(5);
+    cout << (d++) << ",";
+    cout << d << ",";
+    cout << (++d) << ",";
+    cout << d << endl;
+    cout << (d--) << ",";
+    cout << d << ",";
+    cout << (--d) << ",";
+    cout << d << endl;
+    return 0;
+}
