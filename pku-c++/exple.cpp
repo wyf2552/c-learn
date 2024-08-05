@@ -570,6 +570,7 @@ int main() {
 }
 */
 
+/*
 #include <iostream>
 using namespce std;
 
@@ -616,3 +617,157 @@ int main() {
     cout << d << endl;
     return 0;
 }
+*/
+
+/*
+继承实例程序：学籍管理
+#include <iostream>
+#include <string>
+using namespace std;
+class CStudent {
+    private:
+        string name;
+        string id;
+        char gender;
+        int age;
+    public:
+        void Printfo();
+        void Sentlnfo(const string & name_, const string & id_, int age_, char gender_);
+        string GetName() {return name;}
+
+};
+class CUndergraduateStudent:public CStudent {
+    private:
+        string department;
+    public:
+        void QualifiedForBaoyan() {
+            cout << "qualified for baoyan" << endl;
+        }
+        void Printlnfo() {
+            CStudent:Printlnfo();
+            cout << "Department:" << department << endl;
+        }
+        void Setlnfo(const string & name_,const string & id_, int age_, char gender_, const string & department_) {
+            CStudent::Setlnfo(name_, id_, age_, gender_);
+            department = department_;
+        }
+};
+int main() {
+    CUndergraduateStudent s2;
+    s2,Setlnfo("Harry Potter", "118829212", 19, "M", "Computer Science");
+    cout << s2.GetName() << " ";
+    s2.QualifiedForBaoyan();
+    s2.Printlnfo();
+    return 0;
+
+}
+*/
+
+/*写一个小区养狗管理程序，需要写一个“业主类”，还需要写一个“狗”类。狗是有主人的，主人是业主，但是一个业主可以有最多10条狗
+#include <iostream>
+using namespace std;
+class CDog;
+class CMaster {
+    CDog dogs[10];
+};
+class CDog{
+    CMaster m;
+};
+*/
+
+/*
+为“狗”类设一个“业主”类的成员对象；为“业主”类设一个“狗”类的对象指针数组。
+#include <iostream>
+using namespace std;
+class CDog;
+class CMaster {
+    CDog * dogs[10];
+};
+class CDog {
+    CMaster m;
+};
+*/
+
+/*
+派生类的构造函数
+#include <iostream>
+using namespace std;
+class Bug {
+    private:
+        int nLegs; int nColor;
+    public:
+        int nType;
+        Bug(int legs, int color);
+        void PrintBug() { };
+};
+class FlyBug:public Bug{
+        int nWings;
+    public:
+        FlyBug(int legs, int color, int wings);
+};
+Bug::Bug(int legs, int color) {
+    nLegs = legs;
+    nColor = color;
+}
+FlyBug::FlyBug(int legs, int color, int wings) {
+    nLegs = legs;
+    nColor = color;
+    nType = 1;
+    nWings = wings;
+}
+FlyBug::FlyBug(int legs, int color, int wings):Bug(legs, color) {
+    nWings = wings;
+}
+int main() {
+    FlyBug fb (2,3,4);
+    fb.PrintBug();
+    fb.nType = 1;
+    fb.nLegs = 2;
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+using namespace std;
+class Base{
+    public:
+    int n;
+    Base(int i):n(i) {
+        cout << "Base" << n << "constructed" << endl;
+    }
+};
+class Derived:public Base {
+    public:
+        Derived(int):Base(i) {
+            cout << "Derived constructed" << endl;
+        }
+        ~Derived() {
+            cout << "Derived destructed" << endl;
+        }
+};
+int main() {
+    Derived Obj(3);
+    return 0;
+}
+*/
+
+/*
+包含成员对象的派生类的构造函数
+#include <iostream>
+using namespce std;
+class Skill {
+    public:
+        Skill(int n) {    }
+};
+class FlyBug:public Bug {
+        int nWings;
+        Skill sk1, sk2;
+    public:
+        FlyBug(int legs, int color, int wings);
+};
+FlyBug::FlyBug(int legs, int color, int wings):
+    Bug(legs, color), sk1(5), sk2(color) {
+        nWings = wings;
+}
+*/
