@@ -771,3 +771,215 @@ FlyBug::FlyBug(int legs, int color, int wings):
         nWings = wings;
 }
 */
+
+/*
+多层派生
+#include <iostream>
+using namespace std;
+class Base {
+    public:
+        int n;
+        Base(int i):n(i) {
+            cout << "Base" << n << "constructed" << endl;
+        }
+        ~Base() {
+            cout << "Base" << n << "destructed" << endl;
+        }
+};
+class Derived:public Base {
+    public:
+        Derived(int i):Base(i) {
+            cout << "Derived constructed" << endl;
+        }
+        ~Derived() {
+            cout << "Derived destructed" << endl;
+        }
+};
+class MoreDerived:public Derived {
+    public:
+        MoreDerived():Derived(4) {
+            cout << "More Derived destructed" << endl;
+        }
+        ~MoreDerived() {
+            cout << "More Derived destructed" << endl;
+        }
+};
+int main() {
+    MoreDerived Obj;
+    return 0;
+}
+*/
+
+/* 多态的表现形式一
+#include <iostream>
+using namespace std;
+class CBase {
+    public:
+    virtual void SomeVirtualFunction() {}
+};
+class CDerived:public CBase {
+    public:
+    virtual void SomeVirtualFunction() {}
+};
+int main() {
+    CDerived ODerived;
+    CBase * p = & ODerived;
+    p->SomeVirtualFunction();
+    return  0;
+}
+*/
+
+/* 多态的表现形式二
+#include <iostream>
+using namespace std;
+class CBase {
+    public:
+    virtual void SomeVirtualFunction() {}
+};
+class CDerived:public CBase {
+    public:
+    virtual void SomeVirtualFunction() {}
+};
+int main() {
+    CDerived ODerived;
+    CBase & r = ODerived;
+    r.SomeVirtualFunction();
+    return 0;
+}
+*/
+
+/* 多态的简单示例
+#include <iostream>
+using namespace std;
+class A {
+    public:
+    virtual void Print() {
+        cout << "A::Print" << endl;
+    }
+};
+class B:public A {
+    public:
+    virtual void Print() {
+        cout << "B::Print" << endl;
+    }
+};
+class D:public A {
+    public:
+    virtual void Print() {
+        cout << "D::Print" << endl;
+    }
+};
+class E:public B {
+    virtual void Print() {
+        cout << "E::Print" << endl;
+    }
+};
+int main() {
+    A a; B b; E e; d d;
+    A * pa = &a; B * pb = &b;
+    D * pd = &d; E * pe = &e;
+    pa->Print();
+    pa = pb;
+    pa -> Print();
+    pa = pd;
+    pa -> Print();
+    pa = pe;
+    pa -> Print();
+    return 0;
+}
+*/
+
+#include <iostream>
+#include <stdlib.h>
+#include <math.h>
+using namespace std;
+class CShape {
+    public:
+        virtual double Area() = 0;
+        virtual void PrintInfo() = 0;
+};
+class CRectangle:public CShape {
+    public:
+        int w, h;
+        virtual double Area();
+        virtual void PrintInfo();
+};
+class CCircle:public CShape {
+    public:
+        int r;
+        virtual double Area();
+        virtual void PrintInfo();
+};
+class CTriangle:public CShape {
+    public:
+        int a, b, c;
+        virtual double Area();
+        virtual void PrintInfo();
+};
+double CRectangle::Area() {
+    return w * h;
+}
+void CRectangle::PrintInfo() {
+    cout << "Rentangle:" << Area() << endl;
+}
+double CCircle::Area() {
+    return 3.14 * r * r;
+}
+void CCircle::PrintInfo() {
+    cout << "Circle:" << Area() << endl;
+}
+double CTriangle::Area() {
+    double p = (a + b + c)/2.0;
+    return sqrt(p * (p - a)*(p - b)*(p - c));
+}
+void CTriangle::PrintInfo() {
+    cout << "Triangle:" << Area() << endl;
+}
+CShape * pShapes[100];
+int MyCompare(const void * s1, const void * s2);
+
+int main() {
+    int i; int n;
+    CRectangle * pr; CCircle * pc; CTriangle * pt;
+    cin >> n;
+    for (i = 0; i < n; i++) {
+        char c;
+        cin >> c;
+        switch(c) {
+            case'R':
+                pr = new CRectangle();
+                cin >> pr->w >> pr->h;
+                pShapes[i] = pr;
+                break;
+            case'C':
+                pc = new CCircle();
+                cin >> pc->r;
+                pShapes[i] = pc;
+                break;
+            case'T':
+                pt = new CTriangle();
+                cin >> pt->a >> pt->b >> pt->c;
+                pShapes[i] = pt;
+                break;
+        }
+    }
+    qsort(pShapes, n, sizeof(CShape *), MyCompare);
+    for (i = 0; i < n; i++)
+        pShapes[i]->PrintInfo();
+    return 0;
+}
+int MyCompare(const void * s1, const void * s2) {
+    double a1, a2;
+    CShape * * p1;
+    CShape * * p2;
+    p1 = (CShape * *)s1;
+    p2 = (CShape * *)s2;
+    a1 = (*p1)->Area();
+    a2 = (*p2)->Area();
+    if(a1 < a2)
+        return -1;
+    else if (a2 < a1)
+        return 1;
+    else
+        return 0;
+}
