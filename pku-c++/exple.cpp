@@ -889,6 +889,7 @@ int main() {
 }
 */
 
+/*
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
@@ -982,4 +983,98 @@ int MyCompare(const void * s1, const void * s2) {
         return 1;
     else
         return 0;
+}
+*/
+
+/* 多态的实现原理
+#include <iostream>
+using namespace std;
+class Base {
+    public:
+    int i;
+    virtual void Print() {
+        cout << "Base:Print";
+    }
+};
+class Derived:public Base{
+    public:
+    int n;
+    virtual void Print() {
+        cout << "Drived:Print" << endl;
+    }
+};
+int main() {
+    Derived d;
+    cout << sizeof(Base) << "," << sizeof(Derived);
+    return 0;
+}
+*/
+
+/*
+#include <iostream>
+using namespace std;
+class son{
+    public:
+        virtual ~son() {
+            cout << "bye from son" << endl;
+        }
+};
+class grandson:public son{
+    public:
+        ~grandson() {
+            cout << "bye from grandson" << endl;
+        }
+};
+int main() {
+    son * pson;
+    pson = new grandson;
+    delete pson;
+    return 0;.
+}
+*/
+
+/*
+#include <iostream>
+using namespace std;
+class A {
+    public:
+        virtual void f() = 0;
+        void g() {
+            this->f();
+        }
+        A(){ }
+};
+class B:public A{
+    public:
+        void f() {
+            cout << "B:f()" << endl;
+        }
+};
+int main() {
+    B b;
+    b.g();
+    return 0;
+}
+*/
+
+//下面的程序从键盘输入几个学生的姓名的成绩，并以二进制，文件形式存起来
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+class CStudent {
+    public:
+        char szName[20];
+        int nScore;
+};
+int main() {
+    CStudent s;
+    ofstream OutFile("c:\\tmp\\student.dat", ios::out|ios::binary);
+    while(cin >> s.szName >> s.nScore) {
+        if (stricmp(s.szName, "exit") == 0)
+            break;
+        OutFile.write((char*) &s, sizeof(s));
+    }
+    OutFile.close();
+    return 0;
 }
