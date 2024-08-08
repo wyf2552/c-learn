@@ -1057,7 +1057,8 @@ int main() {
 }
 */
 
-//下面的程序从键盘输入几个学生的姓名的成绩，并以二进制，文件形式存起来
+/*
+下面的程序从键盘输入几个学生的姓名的成绩，并以二进制，文件形式存起来
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -1078,3 +1079,25 @@ int main() {
     OutFile.close();
     return 0;
 }
+*/
+
+/* #include <iostream>
+using namespace std;
+class x {
+    private:
+        int m;
+    public:
+        x(int i = 0):m{i} {}
+        int mf(int i) {
+            int old = m;
+            m = i;
+            return old;
+        }
+};
+x var{7};
+int user(x var, x * ptr) {
+    int x = var.mf(7);
+    int y = ptr->mf(9);
+    int z = var.m; // err 不能访问私有成员
+}
+*/
