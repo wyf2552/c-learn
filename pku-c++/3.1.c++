@@ -3,9 +3,11 @@ using namespace std;
 class A {
 public:
     int val;
-public:
-    int & GetObj() {
-        return val;
+A(int n = 0) {
+    val = n;
+}
+ A& GetObj() {
+        return *this;
     }
 };
 int main() {
