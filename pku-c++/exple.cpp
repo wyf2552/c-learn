@@ -1101,3 +1101,4 @@ int user(x var, x * ptr) {
     int z = var.m; // err 不能访问私有成员
 }
 */
+
