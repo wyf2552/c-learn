@@ -3,7 +3,7 @@ using namespace std;
 class Point {
         int x, y;   //点的x和y坐标
     public:
-        Point(int = 0; int = 0);    //构造函数
+        Point(int = 0, int = 0);    //构造函数
         void SetPoint(int, int);    //设置坐标
         int GetX() {return x;}  //取x坐标
         int GetY() {return y;}  //取y坐标
@@ -62,7 +62,7 @@ double Cylinder::Area() {
 
 int main() {
     cout << "测试点类" << endl;
-    point p(30, 50);
+    Point p(30, 50);
     p.Print();
     cout << endl;
     system("pause");

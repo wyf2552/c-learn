@@ -11,19 +11,22 @@ class UDISK {
         ~UDISK() {cout << "撤销U盘对象" << endl;}
 };
 void UDISK::read(void) {
-    for (int i = 0; i < nrow: i++) cout << crow[i] << endl;
+    for (int i = 0; i < nrow; i++) cout << crow[i] << endl;
 }
 
 void UDISK::write(char * pstr) {
     crow[nrow] = pstr;
     nrow++;
 }
-class MP3():public UDISK {
+class MP3:public UDISK {
     public:
         MP3():UDISK() {};
         void play(char  * pstr);
         ~MP3() {cout << "撤销MP3对象" << endl;}
 };
+
+void mciSendStringA(char* ptr, void* a, int b, void* c) { }
+
 void MP3::play(char * pstr) {
     char str[100] = "play";
     strcat(str, pstr);

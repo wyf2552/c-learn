@@ -9,7 +9,7 @@ class person {
         person() {
             strcpy(Name, "XXX");
             Age = 0;
-            Sex = " ";
+            Sex = 0;
         }
         ~person() {
             cout << "Now destroying Person" << endl;
@@ -18,18 +18,18 @@ class person {
         void ShowMe();
 };
 
-void Person::Register(char * name, int age, char sex) {
+void person::Register(char * name, int age, char sex) {
     strcpy(Name, name);
     Age = age;
     Sex = sex;
 }
 
-void Person::ShowMe() {
+void person::ShowMe() {
     cout << Name << '\t' << Age << '\t' << Sex << endl;
 }
 
 int main() {
-    Person person1, person2;
+    person person1, person2;
     cout << "person1:\t";
     person1.ShowMe();
     person1.Register("Zhang3", 19, 'm');

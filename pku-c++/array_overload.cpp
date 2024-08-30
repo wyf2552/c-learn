@@ -1,4 +1,5 @@
 #include <iostream>
+#include <array>
 using namespace std;
 class Array {
     private:
@@ -22,9 +23,9 @@ Array::~Array() {
 }
 
 void Array::print() {
-    count << name << ":";
+    cout << name << ":";
     for (int i = 0; i < count; i++) {
-        count << data[i] << "";
+        cout << data[i] << "";
     }
     cout << endl;
 }
@@ -62,7 +63,7 @@ Array Array::add(const Array & array) {
 }
 
 int main() {
-    int data2[] = {9,8,7,6,5,4,3,2,1,0};
+    int data1[] = {9,8,7,6,5,4,3,2,1,0};
     Array array1("array1", data1, 10);
     array1.print();
     int data2[] = {1,3,5,7,8,6,4,2};

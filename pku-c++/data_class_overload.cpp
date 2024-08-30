@@ -3,7 +3,7 @@ using namespace std;
 class Date {
         int year, month, day;
     public:
-        Date(int y = 1900, int n = 1, int d = 1) {
+        Date(int y = 1900, int m = 1, int d = 1) {
             year = y; month = m; day = d;
         }
         void init(int, int, int);

@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 class automobile {
     private:
         char type[20]; // 汽车型号
@@ -17,6 +18,8 @@ class automobile {
         void play_mp3(char * ps);   //播放歌曲
         char * show_type() {return type;}   //取出汽车型号
 };
+
+void Sleep(int) {}
 
 void automobile::set_date(char * t, char * c, float pri, int cw, int cc) {
     strcpy(type, t);
@@ -52,6 +55,8 @@ void automobile::horming(int num) {
         Sleep(1000);
     }
 }
+
+void mciSendString(char* ptr, void* a, int b, void* c) { }
 
 void automobile::play_mp3(char * ps) {
     char str[100] = "play ";    //play后面有空格
