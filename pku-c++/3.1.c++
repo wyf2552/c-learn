@@ -3,10 +3,12 @@ using namespace std;
 class A {
 public:
     int val;
-A(int n = 0) {
-    val = n;
-}
- A& GetObj() {
+    
+    A(int n = 0) {
+        val = n;
+    }
+
+    A& GetObj() {
         return *this;
     }
 };
