@@ -9,6 +9,8 @@ private:
     string _sex;
     int _age;
 public:
+    Person() = default;
+    
     Person(const string& name, int age, const string& sex)
     : _name(name), _age(age), _sex(sex)
     {}
@@ -29,6 +31,9 @@ public:
     : Person(name, age, sex), _salary(salary), _dep(dep)
     {}
 
+    Teacher(const string& dep, int salary)
+    : _salary(salary), _dep(dep) {}
+
     void show() {
         cout << "dep " << _dep << endl;
         cout << "salary " << _salary << endl;
@@ -45,6 +50,9 @@ public:
     : Person(name, age, sex), _id(id), _class(class1)
     {}
 
+    Student(const string& id, const string& class1)
+    : _id(id), _class(class1) {}
+
     void show() {
         cout << "class " << _class << endl;
         cout << "id " << _id << endl;
@@ -55,14 +63,26 @@ public:
 class Graduate : public Teacher, public Student {
 public:
     Graduate(const string& name, int age, const string& sex, const string& dep, int salary, const string& id, const string& classid)
-    : Person(name, age, sex), Teacher(name, ), Student() {
+    : Person(name, age, sex), Teacher(dep, salary), Student(id, classid) {}
 
+    void showMe() {
+        Student::show();
+        Person::showMe();
+        Teacher::show();
     }
-    void showMe();
 };
 
 int main() {
     string name;
-    cin >> name;
-    Graduate graduate(name);
+    int age;
+    string sex;
+    string dep;
+    int salary;
+    string id;
+    string classid;
+
+    cin >> name >> age >> sex >> dep >> salary >> id >> classid;
+
+    Graduate graduate(name, age, sex, dep, salary, id, classid);
+    graduate.showMe();
 }
